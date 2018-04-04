@@ -41,7 +41,7 @@ Result:
 
 | Property          | Type                      | Description          |
 |-------------------|---------------------------|----------------------|
-| Body              | JToken                    | Response body        |
+| Body              | String                    | Response body        |
 | Headers           | Dictionary<string,string> | Response headers     |
 | StatusCode        | int                       | Response status code | 
 
