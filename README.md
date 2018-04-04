@@ -2,9 +2,7 @@
 FRENDS Task to send file using StreamContent
 
 - [Tasks](#tasks)
-    - [RestRequest](#restrequest)
-    - [HttpRequest](#httprequest)
-	- [HttpRequestBytes](#httprequestbytes)    
+    - [PostFile](#postfile)
 - [License](#license)
 - [Contributing](#contributing)
 
