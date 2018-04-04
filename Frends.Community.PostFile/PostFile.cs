@@ -120,7 +120,7 @@ namespace Frends.Community.PostFile
 
     public class Response
     {
-        public object Body { get; set; }
+        public string Body { get; set; }
         public Dictionary<string, string> Headers { get; set; }
         public int StatusCode { get; set; }
     }
