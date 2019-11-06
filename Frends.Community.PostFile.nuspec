@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Frends.Community.PostFile</id>
-    <version>0.0.6</version>
+    <version>1.0.0</version>
     <title>FRENDS Community Post File Task</title>
     <authors>HiQ Finland</authors>
     <owners />

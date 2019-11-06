@@ -145,11 +145,19 @@ namespace Frends.Community.PostFile
                     var responseMessage = await GetHttpRequestResponseAsync(httpClient, input, options, cancellationToken).ConfigureAwait(false);
                     cancellationToken.ThrowIfCancellationRequested();
 
+                    string body = string.Empty;
+                    IEnumerable<KeyValuePair<string, IEnumerable<string>>> contentHeaders = new Dictionary<string, IEnumerable<string>>();
+
+                    if (responseMessage.Content != null)
+                    {
+                        body = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        contentHeaders = responseMessage.Content.Headers;
+                    }
                     var response = new Response
                     {
-                        Body = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false),
+                        Body = body,
                         StatusCode = (int)responseMessage.StatusCode,
-                        Headers = GetResponseHeaderDictionary(responseMessage.Headers, responseMessage.Content.Headers)
+                        Headers = GetResponseHeaderDictionary((IEnumerable<KeyValuePair<string, IEnumerable<string>>>) responseMessage.Headers ?? new Dictionary<string, IEnumerable<string>>(), contentHeaders)
                     };
 
                     if (!responseMessage.IsSuccessStatusCode && options.ThrowExceptionOnErrorResponse)
@@ -163,7 +171,7 @@ namespace Frends.Community.PostFile
         }
         
         //Combine response- and responsecontent header to one dictionary
-        private static Dictionary<string, string> GetResponseHeaderDictionary(HttpResponseHeaders responseMessageHeaders, HttpContentHeaders contentHeaders)
+        private static Dictionary<string, string> GetResponseHeaderDictionary(IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseMessageHeaders, IEnumerable<KeyValuePair<string, IEnumerable<string>>> contentHeaders)
         {
             var responseHeaders = responseMessageHeaders.ToDictionary(h => h.Key, h => string.Join(";", h.Value));
             var allHeaders = contentHeaders.ToDictionary(h => h.Key, h => string.Join(";", h.Value));

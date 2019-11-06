@@ -1,10 +1,12 @@
 # Frends.Community.PostFile
 FRENDS Task to send file using StreamContent
 
+- [Frends.Community.PostFile](#frendscommunitypostfile)
 - [Tasks](#tasks)
-    - [PostFile](#postfile)
+  - [PostFile](#postfile)
 - [License](#license)
 - [Contributing](#contributing)
+- [Changelog](#changelog)
 
 Tasks
 =====
@@ -61,3 +63,11 @@ When contributing to this repository, please first discuss the change you wish t
 5. Submit a Pull request so that we can review your changes
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+
+Changelog
+=========
+
+| Version             | Changes              |
+| --------------------| ---------------------|
+| 1.0.0 | Added checks for null content to avoid null reference exceptions |
+| 0.0.6 | Initial version |
