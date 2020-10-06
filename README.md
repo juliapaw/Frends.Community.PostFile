@@ -1,21 +1,28 @@
 # Frends.Community.PostFile
-FRENDS Task to send file using StreamContent
 
-- [Frends.Community.PostFile](#frendscommunitypostfile)
+frends Community Task to send file using StreamContent
+
+[![Actions Status](https://github.com/CommunityHiQ/Frends.Community.PostFile/workflows/PackAndPushAfterMerge/badge.svg)](https://github.com/CommunityHiQ/Frends.Community.PostFile/actions) ![MyGet](https://img.shields.io/myget/frends-community/v/Frends.Community.PostFile) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+
+- [Installing](#installing)
 - [Tasks](#tasks)
-  - [PostFile](#postfile)
-- [License](#license)
+     - [PostFile](#PostFile)
+- [Building](#building)
 - [Contributing](#contributing)
-- [Changelog](#changelog)
+- [Change Log](#change-log)
 
-Tasks
-=====
+# Installing
 
-## PostFile
+You can install the Task via frends UI Task View or you can find the NuGet package from the following NuGet feed
+https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view in MyGet https://www.myget.org/feed/frends-community/package/nuget/Frends.Community.PostFile
+
+# Tasks
+
+## PostFileTask
 
 The Frends.Community.PostFile task is meant for sending files using HTTP. 
 
-Input:
+### Properties
 
 | Property          | Type                               | Description												| Example                                   |
 |-------------------|----------------------------------------|------------------------------------------------------|-------------------------------------------|
@@ -24,7 +31,8 @@ Input:
 | FileLocation      | string                             | Path to file												| `C:\TestFile.txt`							|
 | Headers           | Array{Name: string, Value: string} | List of HTTP headers to be added to the request.			| `Name = Content-Type, Value = text/plain` |
 
-Options:
+
+### Options
 
 | Property                         | Type                               | Description                                                         |
 |----------------------------------|------------------------------------|---------------------------------------------------------------------|
@@ -39,7 +47,8 @@ Options:
 | Token                            | string                             | Token to be used in an OAuth request. The token will be added as a Authentication header. `Authorization Bearer '{Token}'` |
 | CertificateThumbprint            | string                             | This field is used with Client Certificate Authentication. The certificate needs to be found in Cert\CurrentUser\My store on the agent running the process |
 
-Result:
+
+### Returns
 
 | Property          | Type                      | Description          |
 |-------------------|---------------------------|----------------------|
@@ -47,16 +56,33 @@ Result:
 | Headers           | Dictionary<string,string> | Response headers     |
 | StatusCode        | int                       | Response status code | 
 
+Usage:
+To fetch result use syntax:
 
-License
-=======
-This project is licensed under the MIT License - see the LICENSE file for details
+`#result.Replication`
 
-Contributing
-============
+# Building
+
+Clone a copy of the repository
+
+`git clone https://github.com/CommunityHiQ/Frends.Community.PostFile.git`
+
+Rebuild the project
+
+`dotnet build`
+
+Run tests
+
+`dotnet test`
+
+Create a NuGet package
+
+`dotnet pack --configuration Release`
+
+# Contributing
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-1. Fork the repo on GitHub
+1. Fork the repository on GitHub
 2. Clone the project to your own machine
 3. Commit changes to your own branch
 4. Push your work back up to your fork
@@ -64,10 +90,10 @@ When contributing to this repository, please first discuss the change you wish t
 
 NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
-Changelog
-=========
+# Change Log
 
-| Version             | Changes              |
-| --------------------| ---------------------|
-| 1.0.0 | Added checks for null content to avoid null reference exceptions |
-| 0.0.6 | Initial version |
+| Version             | Changes              											 |
+| --------------------| -----------------------------------------------------------------|
+| 1.0.1				  | Converted to support .Net Framework 4.7.1 and .Net Standard
+| 1.0.0 			  | Added checks for null content to avoid null reference exceptions |
+| 0.0.6 			  | Initial version |
