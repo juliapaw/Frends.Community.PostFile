@@ -18,11 +18,11 @@ https://www.myget.org/F/frends-community/api/v3/index.json and in Gallery view i
 
 # Tasks
 
-## PostFileTask
+## PostFile
 
 The Frends.Community.PostFile task is meant for sending files using HTTP. 
 
-### Properties
+### Input
 
 | Property          | Type                               | Description												| Example                                   |
 |-------------------|----------------------------------------|------------------------------------------------------|-------------------------------------------|
