@@ -2,7 +2,6 @@ using HttpMock;
 using HttpMock.Verify.NUnit;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -23,18 +22,11 @@ namespace Frends.Community.PostFile.Tests
             {
                 _stubHttp = HttpMockRepository.At("http://localhost:9191");
             }
-            private static IEnumerable<Func<Input, Options, CancellationToken, Task<object>>> TestCases
-            {
-                get
-                {
-                    yield return PostFileTask.PostFile;
-                }
-            }
 
             [Test]
             public async Task RequestShouldSetEncodingWithContentTypeCharsetIgnoringCase()
             {
-                var fileLocation = Path.Combine(TestContext.CurrentContext.TestDirectory, @"..\..\..\Test_files\test_file.txt");
+                var fileLocation = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../..", "Test_files", "test_file.txt"));
                 var codePageName = "iso-8859-1";
                 var utf8ByteArray = File.ReadAllBytes(fileLocation);
                 var expectedContentType = $"text/plain; charset={codePageName}";
