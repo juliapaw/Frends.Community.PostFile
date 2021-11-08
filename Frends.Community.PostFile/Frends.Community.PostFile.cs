@@ -12,9 +12,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.CSharp; // You can remove this if you don't need dynamic type in .NET Standard frends Tasks
 
 #pragma warning disable 1591
+#pragma warning disable 1573
 
 namespace Frends.Community.PostFile
 {
@@ -162,9 +162,6 @@ namespace Frends.Community.PostFile
             {
                 handler.ServerCertificateCustomValidationCallback = (a, b, c, d) => true;
             }
-            //Allow all endpoint types
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
-                                                   SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
         }
 
         internal static X509Certificate2 GetCertificate(string thumbprint)
