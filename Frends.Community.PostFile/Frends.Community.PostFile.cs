@@ -1,131 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
-#pragma warning disable 1573
 
-// ReSharper disable InconsistentNaming
 #pragma warning disable 1591
+#pragma warning disable 1573
 
 namespace Frends.Community.PostFile
 {
-    public enum Method
-    {
-        POST, PUT
-    }
-
-    public enum Authentication
-    {
-        None, Basic, WindowsAuthentication, WindowsIntegratedSecurity, OAuth, ClientCertificate
-    }
-
-    public class Header
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-    }
-
-    public class Input
-    {
-        /// <summary>
-        /// The HTTP Method to be used with the request.
-        /// </summary>
-        public Method Method { get; set; }
-
-        /// <summary>
-        /// The URL with protocol and path. You can include query parameters directly in the url.
-        /// </summary>
-        [DefaultValue("https://example.org/path/to")]
-        [DisplayFormat(DataFormatString = "Text")]
-        public string Url { get; set; }
-
-        /// <summary>
-        /// The file location to be posted
-        /// </summary>
-        public string FileLocation { get; set; }
-
-        /// <summary>
-        /// List of HTTP headers to be added to the request.
-        /// </summary>
-        public Header[] Headers { get; set; }
-    }
-
-    public class Options
-    {
-        /// <summary>
-        /// Method of authenticating request
-        /// </summary>
-        public Authentication Authentication { get; set; }
-
-        /// <summary>
-        /// If WindowsAuthentication is selected you should use domain\username
-        /// </summary>
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
-        public string Username { get; set; }
-
-        [PasswordPropertyText]
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Bearer token to be used for request. Token will be added as Authorization header.
-        /// </summary>
-        [PasswordPropertyText]
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.OAuth)]
-        public string Token { get; set; }
-
-        /// <summary>
-        /// Thumbprint for using client certificate authentication.
-        /// </summary>
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.ClientCertificate)]
-        public string CertificateThumbprint { get; set; }
-
-        /// <summary>
-        /// Timeout in seconds to be used for the connection and operation.
-        /// </summary>
-        [DefaultValue(30)]
-        public int ConnectionTimeoutSeconds { get; set; }
-
-        /// <summary>
-        /// If FollowRedirects is set to false, all responses with an HTTP status code from 300 to 399 is returned to the application.
-        /// </summary>
-        [DefaultValue(true)]
-        public bool FollowRedirects { get; set; }
-
-        /// <summary>
-        /// Do not throw an exception on certificate error.
-        /// </summary>
-        public bool AllowInvalidCertificate { get; set; }
-
-        /// <summary>
-        /// Some Api's return faulty content-type charset header. This setting overrides the returned charset.
-        /// </summary>
-        public bool AllowInvalidResponseContentTypeCharSet { get; set; }
-        /// <summary>
-        /// Throw exception if return code of request is not successfull
-        /// </summary>
-        public bool ThrowExceptionOnErrorResponse { get; set; }
-    }
-
-    public class Response
-    {
-        public string Body { get; set; }
-        public Dictionary<string, string> Headers { get; set; }
-        public int StatusCode { get; set; }
-    }
-
-    public class PostFileTask
+    public static class PostFileTask
     {
         /// <summary>
         /// Send file using StreamContent
@@ -136,8 +29,8 @@ namespace Frends.Community.PostFile
         /// public static bool Delete([PropertyTab] string fileName, [PropertyTab] OptionsClass options)
         public static async Task<object> PostFile([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
         {
-            using (var handler = new WebRequestHandler())
-            { 
+            using (var handler = new HttpClientHandler())
+            {
                 handler.SetHandleSettingsBasedOnOptions(options);
 
                 using (var httpClient = new HttpClient(handler))
@@ -157,7 +50,7 @@ namespace Frends.Community.PostFile
                     {
                         Body = body,
                         StatusCode = (int)responseMessage.StatusCode,
-                        Headers = GetResponseHeaderDictionary((IEnumerable<KeyValuePair<string, IEnumerable<string>>>) responseMessage.Headers ?? new Dictionary<string, IEnumerable<string>>(), contentHeaders)
+                        Headers = GetResponseHeaderDictionary((IEnumerable<KeyValuePair<string, IEnumerable<string>>>)responseMessage.Headers ?? new Dictionary<string, IEnumerable<string>>(), contentHeaders)
                     };
 
                     if (!responseMessage.IsSuccessStatusCode && options.ThrowExceptionOnErrorResponse)
@@ -169,7 +62,7 @@ namespace Frends.Community.PostFile
                 }
             }
         }
-        
+
         //Combine response- and responsecontent header to one dictionary
         private static Dictionary<string, string> GetResponseHeaderDictionary(IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseMessageHeaders, IEnumerable<KeyValuePair<string, IEnumerable<string>>> contentHeaders)
         {
@@ -237,11 +130,13 @@ namespace Frends.Community.PostFile
                 return response;
             }
         }
+
+      
     }
 
     public static class Extensions
     {
-        internal static void SetHandleSettingsBasedOnOptions(this WebRequestHandler handler, Options options)
+        internal static void SetHandleSettingsBasedOnOptions(this HttpClientHandler handler, Options options)
         {
             switch (options.Authentication)
             {
@@ -265,11 +160,8 @@ namespace Frends.Community.PostFile
 
             if (options.AllowInvalidCertificate)
             {
-                handler.ServerCertificateValidationCallback = (a, b, c, d) => true;
+                handler.ServerCertificateCustomValidationCallback = (a, b, c, d) => true;
             }
-            //Allow all endpoint types
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
-                                                   SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
         }
 
         internal static X509Certificate2 GetCertificate(string thumbprint)
