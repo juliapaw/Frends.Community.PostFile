@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Frends.HTTP.UploadFile;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,9 +17,9 @@ using System.Threading.Tasks;
 #pragma warning disable 1591
 #pragma warning disable 1573
 
-namespace Frends.Community.PostFile
+namespace Frends.HTTP.UploadFile
 {
-    public static class PostFileTask
+    public static class UploadFileTask
     {
         /// <summary>
         /// Send file using StreamContent
@@ -27,7 +28,7 @@ namespace Frends.Community.PostFile
         /// <param name="options">Optional parameters with default values</param>
         /// <returns>Object with the following properties: JToken Body. Dictionary(string,string) Headers. int StatusCode</returns>
         /// public static bool Delete([PropertyTab] string fileName, [PropertyTab] OptionsClass options)
-        public static async Task<object> PostFile([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
+        public static async Task<object> UploadFile([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
         {
             using (var handler = new HttpClientHandler())
             {

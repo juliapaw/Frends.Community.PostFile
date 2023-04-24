@@ -5,7 +5,7 @@
     <authors>HiQ Finland</authors>
     <copyright>HiQ Finland</copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/CommunityHiQ/Frends.Community.PostFile</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/CommunityHiQ/Frends.HTTP.UploadFile</PackageProjectUrl>
     <IncludeSource>true</IncludeSource>
     <PackageTags>Frends</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

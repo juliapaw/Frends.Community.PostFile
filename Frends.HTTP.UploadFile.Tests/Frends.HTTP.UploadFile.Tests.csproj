@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Frends.Community.PostFile\Frends.Community.PostFile.csproj" />
+    <ProjectReference Include="..\Frends.HTTP.UploadFile\Frends.HTTP.UploadFile.csproj" />
   </ItemGroup>
 
 </Project>

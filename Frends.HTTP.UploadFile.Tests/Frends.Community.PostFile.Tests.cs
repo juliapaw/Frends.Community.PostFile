@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Frends.Community.PostFile.Tests
+namespace Frends.HTTP.UploadFile.Tests
 {
     [TestFixture]
     class TestClass
@@ -39,7 +39,7 @@ namespace Frends.Community.PostFile.Tests
                 var contentType = new Header { Name = "cONTENT-tYpE", Value = expectedContentType };
                 var input = new Input { Method = Method.POST, Url = "http://localhost:9191/endpoint", Headers = new Header[1] { contentType }, FileLocation = fileLocation };
                 var options = new Options { ConnectionTimeoutSeconds = 60 };
-                var result = (Response)await PostFileTask.PostFile(input, options, CancellationToken.None);
+                var result = (Response)await UploadFileTask.UploadFile(input, options, CancellationToken.None);
                 var request = _stubHttp.AssertWasCalled(called => called.Post("/endpoint")).LastRequest();
                 var requestHead = request.RequestHead;
                 var requestBodyByteArray = Encoding.GetEncoding(codePageName).GetBytes(request.Body);

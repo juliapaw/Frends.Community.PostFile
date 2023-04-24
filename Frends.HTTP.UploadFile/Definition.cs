@@ -1,12 +1,12 @@
 ﻿#pragma warning disable 1591
-
+using Frends.HTTP.UploadFile;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Frends.Community.PostFile
+namespace Frends.HTTP.UploadFile
 {
-    public enum Method
+	public enum Method
     {
         POST, PUT
     }
@@ -57,24 +57,24 @@ namespace Frends.Community.PostFile
         /// <summary>
         /// If WindowsAuthentication is selected you should use domain\username
         /// </summary>
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
+        [UIHint(nameof(UploadFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
         public string Username { get; set; }
 
         [PasswordPropertyText]
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
+        [UIHint(nameof(UploadFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
         public string Password { get; set; }
 
         /// <summary>
         /// Bearer token to be used for request. Token will be added as Authorization header.
         /// </summary>
         [PasswordPropertyText]
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.OAuth)]
+        [UIHint(nameof(UploadFile.Authentication), "", Authentication.OAuth)]
         public string Token { get; set; }
 
         /// <summary>
         /// Thumbprint for using client certificate authentication.
         /// </summary>
-        [UIHint(nameof(PostFile.Authentication), "", Authentication.ClientCertificate)]
+        [UIHint(nameof(UploadFile.Authentication), "", Authentication.ClientCertificate)]
         public string CertificateThumbprint { get; set; }
 
         /// <summary>
