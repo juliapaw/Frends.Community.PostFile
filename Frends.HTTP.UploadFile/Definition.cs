@@ -1,27 +1,80 @@
-﻿#pragma warning disable 1591
-using Frends.HTTP.UploadFile;
+﻿using Frends.HTTP.UploadFile;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.HTTP.UploadFile
 {
-	public enum Method
+    /// <summary>
+    /// Represents the HTTP method to be used with the request.
+    /// </summary>
+    public enum Method
     {
-        POST, PUT
+        /// <summary>
+        /// The HTTP POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
+        /// </summary>
+        POST,
+        /// <summary>
+        /// The HTTP PUT method is used to replace or update a current resource with new content.
+        /// </summary>
+        PUT
     }
 
+    /// <summary>
+    /// Represents the authentication method to be used with the request.
+    /// </summary>
     public enum Authentication
     {
-        None, Basic, WindowsAuthentication, WindowsIntegratedSecurity, OAuth, ClientCertificate
+        /// <summary>
+        /// No authentication is used.
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// Basic authentication is used, where the username and password are sent in plain text.
+        /// </summary>
+        Basic,
+
+        /// <summary>
+        /// Windows authentication is used, where the user's Windows login credentials are used to authenticate the request.
+        /// </summary>
+        WindowsAuthentication,
+
+        /// <summary>
+        /// Windows integrated security is used, where the current Windows user's credentials are used to authenticate the request.
+        /// </summary>
+        WindowsIntegratedSecurity,
+
+        /// <summary>
+        /// OAuth token-based authentication is used, where a token is obtained from an authentication server and used to authenticate the request.
+        /// </summary>
+        OAuth,
+
+        /// <summary>
+        /// Client certificate-based authentication is used, where a client certificate is used to authenticate the request.
+        /// </summary>
+        ClientCertificate
     }
 
+    /// <summary>
+    /// Represents an HTTP header, which consists of a name-value pair.
+    /// </summary>
     public class Header
     {
+        /// <summary>
+        /// The name of the header.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The value of the header.
+        /// </summary>
         public string Value { get; set; }
     }
 
+    /// <summary>
+    /// Represents the input data for the HTTP file upload operation.
+    /// </summary>
     public class Input
     {
         /// <summary>
@@ -47,6 +100,10 @@ namespace Frends.HTTP.UploadFile
         public Header[] Headers { get; set; }
     }
 
+
+    /// <summary>
+    /// Options for the HTTP request.
+    /// </summary>
     public class Options
     {
         /// <summary>
@@ -60,6 +117,9 @@ namespace Frends.HTTP.UploadFile
         [UIHint(nameof(UploadFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
         public string Username { get; set; }
 
+        /// <summary>
+        /// Password for the user.
+        /// </summary>
         [PasswordPropertyText]
         [UIHint(nameof(UploadFile.Authentication), "", Authentication.WindowsAuthentication, Authentication.Basic)]
         public string Password { get; set; }
@@ -104,10 +164,24 @@ namespace Frends.HTTP.UploadFile
         public bool ThrowExceptionOnErrorResponse { get; set; }
     }
 
+    /// <summary>
+    /// Represents the response received from the HTTP server after sending a request.
+    /// </summary>
     public class Response
     {
+        /// <summary>
+        /// The body of the response.
+        /// </summary>
         public string Body { get; set; }
+
+        /// <summary>
+        /// The headers of the response, as a dictionary of key-value pairs.
+        /// </summary>
         public Dictionary<string, string> Headers { get; set; }
+
+        /// <summary>
+        /// The status code of the response, as an integer value.
+        /// </summary>
         public int StatusCode { get; set; }
     }
 }
