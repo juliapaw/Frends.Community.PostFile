@@ -14,11 +14,11 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-#pragma warning disable 1591
-#pragma warning disable 1573
-
 namespace Frends.HTTP.UploadFile
 {
+    /// <summary>
+    /// Represents a task that posts a file to a web API endpoint.
+    /// </summary>
     public static class UploadFileTask
     {
         /// <summary>
@@ -26,6 +26,7 @@ namespace Frends.HTTP.UploadFile
         /// </summary>
         /// <param name="input">Input parameters</param>
         /// <param name="options">Optional parameters with default values</param>
+        /// <param name="cancellationToken">The cancellation token that can be used to cancel the upload operation.</param>
         /// <returns>Object with the following properties: JToken Body. Dictionary(string,string) Headers. int StatusCode</returns>
         /// public static bool Delete([PropertyTab] string fileName, [PropertyTab] OptionsClass options)
         public static async Task<object> UploadFile([PropertyTab] Input input, [PropertyTab] Options options, CancellationToken cancellationToken)
@@ -130,11 +131,12 @@ namespace Frends.HTTP.UploadFile
                 }
                 return response;
             }
-        }
-
-      
+        }      
     }
 
+    /// <summary>
+    /// Provides extension methods for various types, allowing for additional functionality to be added to existing types.
+    /// </summary>
     public static class Extensions
     {
         internal static void SetHandleSettingsBasedOnOptions(this HttpClientHandler handler, Options options)
