@@ -1,5 +1,4 @@
-﻿using Frends.HTTP.UploadFile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -116,6 +115,7 @@ namespace Frends.HTTP.UploadFile
                             Trace.TraceWarning($"Could not add header {header.Key}:{header.Value}");
                         }
                     }
+               
                 }
 
                 var request = new HttpRequestMessage(new HttpMethod(input.Method.ToString()), new Uri(input.Url))

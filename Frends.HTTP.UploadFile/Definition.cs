@@ -1,5 +1,4 @@
-﻿using Frends.HTTP.UploadFile;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -100,7 +99,6 @@ namespace Frends.HTTP.UploadFile
         public Header[] Headers { get; set; }
     }
 
-
     /// <summary>
     /// Options for the HTTP request.
     /// </summary>
@@ -177,7 +175,7 @@ namespace Frends.HTTP.UploadFile
         /// <summary>
         /// The headers of the response, as a dictionary of key-value pairs.
         /// </summary>
-        public Dictionary<string, string> Headers { get; set; }
+       public Dictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The status code of the response, as an integer value.
